@@ -153,7 +153,7 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
     /**
      * @return int
      */
-    public function getWindowSize()
+    public function getWindowSize(): int
     {
         return $this->windowSize;
     }

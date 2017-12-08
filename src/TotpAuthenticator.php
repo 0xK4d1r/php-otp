@@ -41,7 +41,7 @@ class TotpAuthenticator extends HotpAuthenticator
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getInterval(): int
     {
@@ -49,9 +49,9 @@ class TotpAuthenticator extends HotpAuthenticator
     }
 
     /**
-     * @param mixed $interval
+     * @param int $interval
      */
-    public function setInterval(int $interval)
+    public function setInterval(int $interval): void
     {
         if ($interval < 0) {
             throw new NegativeIntervalException();
