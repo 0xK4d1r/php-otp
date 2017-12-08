@@ -2,7 +2,6 @@
 
 namespace vjolenz\OtpAuth\Exceptions;
 
-
 class NegativeIntervalException extends \LogicException
 {
     public function __construct()

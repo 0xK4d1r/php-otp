@@ -2,7 +2,6 @@
 
 namespace vjolenz\OtpAuth\Exceptions;
 
-
 class NegativeWindowSizeException extends \LogicException
 {
     public function __construct()

@@ -2,13 +2,12 @@
 
 namespace vjolenz\OtpAuth;
 
+use vjolenz\OtpAuth\Exceptions\NegativePasswordLengthException;
 use vjolenz\OtpAuth\Exceptions\NegativeWindowSizeException;
 use vjolenz\OtpAuth\Exceptions\UnsuitableHashingAlgorithmException;
-use vjolenz\OtpAuth\Exceptions\NegativePasswordLengthException;
 
 class HotpAuthenticator implements OtpAuthenticatorInterface
 {
-
     /**
      * @var string Key to be used in hash creation
      */
@@ -30,9 +29,10 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
     protected $passwordLength = 6;
 
     /**
-     * Generate one-time password using given moving factor
+     * Generate one-time password using given moving factor.
      *
      * @param $movingFactor int a value that changes on a per use basis.
+     *
      * @return string generated one-time password
      */
     public function generatePassword(int $movingFactor = 1): string
@@ -60,10 +60,11 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
     }
 
     /**
-     * Verify one-time password using given moving factor
+     * Verify one-time password using given moving factor.
      *
      * @param int|string $password
-     * @param int $movingFactor
+     * @param int        $movingFactor
+     *
      * @return bool
      */
     public function verifyPassword($password, int $movingFactor = 1): bool
@@ -72,18 +73,21 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
     }
 
     /**
-     * Check if password is in given window
+     * Check if password is in given window.
      *
      * @param $password
      * @param int $movingFactor
      * @param int $windowSize
+     *
      * @return bool
      */
     protected function isPasswordInGivenWindow($password, int $movingFactor, int $windowSize): bool
     {
-        for($i = $movingFactor - $windowSize; $i <= $movingFactor + $windowSize; $i++)
-            if($this->generatePassword($i) == $password)
+        for ($i = $movingFactor - $windowSize; $i <= $movingFactor + $windowSize; $i++) {
+            if ($this->generatePassword($i) == $password) {
                 return true;
+            }
+        }
 
         return false;
     }
@@ -114,13 +118,14 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
 
     /**
      * @param string $algorithm
+     *
      * @throws UnsuitableHashingAlgorithmException
      */
     public function setAlgorithm(string $algorithm): void
     {
-        if(!in_array($algorithm, hash_hmac_algos()))
+        if (!in_array($algorithm, hash_hmac_algos())) {
             throw new UnsuitableHashingAlgorithmException();
-
+        }
         $this->algorithm = $algorithm;
     }
 
@@ -134,13 +139,14 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
 
     /**
      * @param int $passwordLength
+     *
      * @throws NegativePasswordLengthException
      */
     public function setPasswordLength(int $passwordLength): void
     {
-        if($passwordLength < 1)
+        if ($passwordLength < 1) {
             throw new NegativePasswordLengthException();
-
+        }
         $this->passwordLength = $passwordLength;
     }
 
@@ -157,9 +163,9 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
      */
     public function setWindowSize(int $windowSize): void
     {
-        if($windowSize < 0)
+        if ($windowSize < 0) {
             throw new NegativeWindowSizeException();
-
+        }
         $this->windowSize = $windowSize;
     }
 }
