@@ -2,7 +2,6 @@
 
 namespace vjolenz\OtpAuth\Exceptions;
 
-
 class NegativePasswordLengthException extends \LogicException
 {
     public function __construct()

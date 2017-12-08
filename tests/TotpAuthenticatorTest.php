@@ -2,7 +2,6 @@
 
 namespace vjolenz\Google2FA\Test;
 
-
 use PHPUnit\Framework\TestCase;
 use vjolenz\OtpAuth\Exceptions\NegativeIntervalException;
 use vjolenz\OtpAuth\TotpAuthenticator;
@@ -21,7 +20,7 @@ class TotpAuthenticatorTest extends TestCase
     /** @test */
     public function should_generate_a_valid_password()
     {
-        /**
+        /*
          * Test values are taken from related RFC
          * @see https://tools.ietf.org/html/rfc6238#appendix-B for more info
          */
@@ -30,18 +29,19 @@ class TotpAuthenticatorTest extends TestCase
 
         $testCases = [
             1234567890 => 89005924,
-            59 => 94287082,
-            2000000000 => 69279037
+            59         => 94287082,
+            2000000000 => 69279037,
         ];
 
-        foreach($testCases as $movingFactor => $expectedPassword)
+        foreach ($testCases as $movingFactor => $expectedPassword) {
             $this->assertEquals($expectedPassword, $this->authenticator->generatePassword($movingFactor));
+        }
     }
 
     /** @test */
     public function should_verify_password()
     {
-        /**
+        /*
          * Test values are taken from related RFC
          * @see https://tools.ietf.org/html/rfc6238#appendix-B for more info
          */
@@ -50,12 +50,13 @@ class TotpAuthenticatorTest extends TestCase
 
         $testCases = [
             1234567890 => 89005924,
-            59 => 94287082,
-            2000000000 => 69279037
+            59         => 94287082,
+            2000000000 => 69279037,
         ];
 
-        foreach($testCases as $timestamp => $password)
+        foreach ($testCases as $timestamp => $password) {
             $this->assertTrue($this->authenticator->verifyPassword($password, $timestamp));
+        }
     }
 
     /** @test */
@@ -71,8 +72,8 @@ class TotpAuthenticatorTest extends TestCase
         $interval = $this->authenticator->getInterval();
 
         // Create passwords using older and newer timestamps
-        for($i = -$windowSize; $i < $windowSize; $i++) {
-            $pass= $this->authenticator->generatePassword($timestamp + ($i * $interval));
+        for ($i = -$windowSize; $i < $windowSize; $i++) {
+            $pass = $this->authenticator->generatePassword($timestamp + ($i * $interval));
 
             $this->assertTrue($this->authenticator->verifyPassword($pass, $timestamp));
         }

@@ -10,7 +10,6 @@ use vjolenz\OtpAuth\HotpAuthenticator;
 
 class HotpAuthenticatorTest extends TestCase
 {
-
     private $authenticator;
 
     public function setUp()
@@ -23,7 +22,7 @@ class HotpAuthenticatorTest extends TestCase
     /** @test */
     public function should_generate_a_valid_password()
     {
-        /**
+        /*
          * Test values are taken from related RFC
          * @see https://tools.ietf.org/html/rfc4226#page-32 for more info
          */
@@ -39,17 +38,18 @@ class HotpAuthenticatorTest extends TestCase
             6 => 287922,
             7 => 162583,
             8 => 399871,
-            9 => 520489
+            9 => 520489,
         ];
 
-        foreach($testCases as $movingFactor => $expectedPassword)
+        foreach ($testCases as $movingFactor => $expectedPassword) {
             $this->assertEquals($expectedPassword, $this->authenticator->generatePassword($movingFactor));
+        }
     }
 
     /** @test */
     public function should_verify_password()
     {
-        /**
+        /*
          * Test values are taken from related RFC
          * @see https://tools.ietf.org/html/rfc4226#page-32 for more info
          */
@@ -66,11 +66,12 @@ class HotpAuthenticatorTest extends TestCase
             6 => 287922,
             7 => 162583,
             8 => 399871,
-            9 => 520489
+            9 => 520489,
         ];
 
-        foreach($testCases as $movingFactor => $password)
+        foreach ($testCases as $movingFactor => $password) {
             $this->assertTrue($this->authenticator->verifyPassword($password, $movingFactor));
+        }
     }
 
     /** @test */
