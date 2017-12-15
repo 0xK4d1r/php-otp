@@ -50,6 +50,8 @@ class TotpAuthenticator extends HotpAuthenticator
 
     /**
      * @param int $interval
+     *
+     * @throws \vjolenz\OtpAuth\Exceptions\NegativeIntervalException
      */
     public function setInterval(int $interval): void
     {

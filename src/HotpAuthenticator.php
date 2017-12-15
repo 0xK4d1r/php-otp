@@ -119,7 +119,7 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
     /**
      * @param string $algorithm
      *
-     * @throws UnsuitableHashingAlgorithmException
+     * @throws \vjolenz\OtpAuth\Exceptions\UnsuitableHashingAlgorithmException
      */
     public function setAlgorithm(string $algorithm): void
     {
@@ -140,7 +140,7 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
     /**
      * @param int $passwordLength
      *
-     * @throws NegativePasswordLengthException
+     * @throws \vjolenz\OtpAuth\Exceptions\NegativePasswordLengthException
      */
     public function setPasswordLength(int $passwordLength): void
     {
@@ -160,6 +160,8 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
 
     /**
      * @param int $windowSize
+     *
+     * @throws \vjolenz\OtpAuth\Exceptions\NegativeWindowSizeException
      */
     public function setWindowSize(int $windowSize): void
     {
