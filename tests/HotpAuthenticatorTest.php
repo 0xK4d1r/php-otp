@@ -5,7 +5,6 @@ namespace vjolenz\Google2FA\Test;
 use PHPUnit\Framework\TestCase;
 use vjolenz\OtpAuth\Exceptions\NegativePasswordLengthException;
 use vjolenz\OtpAuth\Exceptions\NegativeWindowSizeException;
-use vjolenz\OtpAuth\Exceptions\UnsuitableHashingAlgorithmException;
 use vjolenz\OtpAuth\HotpAuthenticator;
 
 class HotpAuthenticatorTest extends TestCase
@@ -107,16 +106,6 @@ class HotpAuthenticatorTest extends TestCase
         $this->authenticator->setAlgorithm('sha256');
 
         $this->assertEquals('sha256', $this->authenticator->getAlgorithm());
-    }
-
-    /** @test */
-    public function given_algorithm_to_setAlgorithm_should_be_suitable_for_hash_hmac()
-    {
-        $this->expectException(UnsuitableHashingAlgorithmException::class);
-
-        $algo = 'non-existent-algorithm';
-
-        $this->authenticator->setAlgorithm($algo);
     }
 
     /** @test */

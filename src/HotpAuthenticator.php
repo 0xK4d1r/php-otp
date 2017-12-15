@@ -4,7 +4,6 @@ namespace vjolenz\OtpAuth;
 
 use vjolenz\OtpAuth\Exceptions\NegativePasswordLengthException;
 use vjolenz\OtpAuth\Exceptions\NegativeWindowSizeException;
-use vjolenz\OtpAuth\Exceptions\UnsuitableHashingAlgorithmException;
 
 class HotpAuthenticator implements OtpAuthenticatorInterface
 {
@@ -119,13 +118,9 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
     /**
      * @param string $algorithm
      *
-     * @throws \vjolenz\OtpAuth\Exceptions\UnsuitableHashingAlgorithmException
      */
     public function setAlgorithm(string $algorithm): void
     {
-        if (!in_array($algorithm, hash_hmac_algos())) {
-            throw new UnsuitableHashingAlgorithmException();
-        }
         $this->algorithm = $algorithm;
     }
 
