@@ -7,11 +7,9 @@ and [TOTP](http://tools.ietf.org/html/rfc6238).
 
 This library needs at least `PHP 7.2`.
 
-[Click here](https://github.com/vjolenz/php-otp/tree/7.0-7.1-compatible) if you are using php 7.0 or 7.1
+[Click here](https://github.com/vjolenz/php-otp/tree/7.0-7.1-compatible) if you are using `PHP 7.0` or `PHP 7.1`
 
 ## Usage
-
-### Basic Usage
 
 #### Defaults
 The defaults that will be used if you are not explicitly specify   
@@ -28,7 +26,7 @@ The defaults that will be used if you are not explicitly specify
  ```php
     $user = User::find(1);
     
-    $authenticator = new vjolenz\OtpAuth\HotpAuthenticator;
+    $authenticator = new \vjolenz\OtpAuth\HotpAuthenticator;
     $authenticator->setSecret('12345678901234567890');
     
     $password = $authenticator->generatePassword($user->getLoginCounter());
@@ -38,7 +36,7 @@ The defaults that will be used if you are not explicitly specify
  ```php
     $user = User::find(1);
     
-    $authenticator = new vjolenz\OtpAuth\HotpAuthenticator;
+    $authenticator = new \vjolenz\OtpAuth\HotpAuthenticator;
     $authenticator->setSecret('12345678901234567890');
     
     $authenticator->verifyPassword($password, $user->getLoginCounter());
@@ -50,7 +48,7 @@ The defaults that will be used if you are not explicitly specify
  ```php
     $user = User::find(1);
     
-    $authenticator = new vjolenz\OtpAuth\HotpAuthenticator;
+    $authenticator = new \vjolenz\OtpAuth\HotpAuthenticator;
     $authenticator->setSecret('12345678901234567890');
     
     $password = $authenticator->generatePassword();
@@ -60,7 +58,7 @@ The defaults that will be used if you are not explicitly specify
  ```php
     $user = User::find(1);
     
-    $authenticator = new vjolenz\OtpAuth\HotpAuthenticator;
+    $authenticator = new \vjolenz\OtpAuth\HotpAuthenticator;
     $authenticator->setSecret('12345678901234567890');
     
     $authenticator->verifyPassword($password);
