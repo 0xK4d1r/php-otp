@@ -102,7 +102,7 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
     /**
      * @param string $secret
      */
-    public function setSecret(string $secret): void
+    public function setSecret(string $secret)
     {
         $this->secret = $secret;
     }
@@ -119,7 +119,7 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
      * @param string $algorithm
      *
      */
-    public function setAlgorithm(string $algorithm): void
+    public function setAlgorithm(string $algorithm)
     {
         $this->algorithm = $algorithm;
     }
@@ -137,7 +137,7 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
      *
      * @throws \vjolenz\OtpAuth\Exceptions\NegativePasswordLengthException
      */
-    public function setPasswordLength(int $passwordLength): void
+    public function setPasswordLength(int $passwordLength)
     {
         if ($passwordLength < 1) {
             throw new NegativePasswordLengthException();
@@ -158,7 +158,7 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
      *
      * @throws \vjolenz\OtpAuth\Exceptions\NegativeWindowSizeException
      */
-    public function setWindowSize(int $windowSize): void
+    public function setWindowSize(int $windowSize)
     {
         if ($windowSize < 0) {
             throw new NegativeWindowSizeException();
