@@ -117,7 +117,6 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
 
     /**
      * @param string $algorithm
-     *
      */
     public function setAlgorithm(string $algorithm)
     {
