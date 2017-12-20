@@ -7,7 +7,7 @@ use vjolenz\OtpAuth\Exceptions\NegativeIntervalException;
 class TotpAuthenticator extends HotpAuthenticator
 {
     /**
-     * @var int time slice between generating passwords
+     * @var int Indicates how many seconds a password is valid for
      */
     private $interval = 30;
 

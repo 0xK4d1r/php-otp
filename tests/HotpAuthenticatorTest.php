@@ -1,6 +1,6 @@
 <?php
 
-namespace vjolenz\Google2FA\Test;
+namespace vjolenz\OtpAuth\Test;
 
 use PHPUnit\Framework\TestCase;
 use vjolenz\OtpAuth\Exceptions\NegativePasswordLengthException;
@@ -9,66 +9,58 @@ use vjolenz\OtpAuth\HotpAuthenticator;
 
 class HotpAuthenticatorTest extends TestCase
 {
+    /** @var \vjolenz\OtpAuth\HotpAuthenticator */
     private $authenticator;
+
+    /**
+     * @var array Test cases taken from related RFC
+     *
+     * @see https://tools.ietf.org/html/rfc4226#page-32 for more info
+     */
+    private $rfcTestCases = [
+        0 => 755224,
+        1 => 287082,
+        2 => 359152,
+        3 => 969429,
+        4 => 338314,
+        5 => 254676,
+        6 => 287922,
+        7 => 162583,
+        8 => 399871,
+        9 => 520489,
+    ];
 
     public function setUp()
     {
         parent::setUp();
 
         $this->authenticator = new HotpAuthenticator();
+        $this->authenticator->setSecret('12345678901234567890');
     }
 
     /** @test */
     public function should_generate_a_valid_password()
     {
-        /*
-         * Test values are taken from related RFC
-         * @see https://tools.ietf.org/html/rfc4226#page-32 for more info
-         */
-        $this->authenticator->setSecret('12345678901234567890');
-
-        $testCases = [
-            0 => 755224,
-            1 => 287082,
-            2 => 359152,
-            3 => 969429,
-            4 => 338314,
-            5 => 254676,
-            6 => 287922,
-            7 => 162583,
-            8 => 399871,
-            9 => 520489,
-        ];
-
-        foreach ($testCases as $movingFactor => $expectedPassword) {
+        foreach ($this->rfcTestCases as $movingFactor => $expectedPassword) {
             $this->assertEquals($expectedPassword, $this->authenticator->generatePassword($movingFactor));
         }
     }
 
     /** @test */
+    public function generatePassword_should_pad_on_the_left_with_0_if_length_of_generated_password_is_lower_than_expected()
+    {
+        $this->authenticator->setPasswordLength(12);
+
+        $password = $this->authenticator->generatePassword();
+
+        $this->assertStringStartsWith('00', $password);
+        $this->assertEquals(12, strlen($password));
+    }
+
+    /** @test */
     public function should_verify_password()
     {
-        /*
-         * Test values are taken from related RFC
-         * @see https://tools.ietf.org/html/rfc4226#page-32 for more info
-         */
-
-        $this->authenticator->setSecret('12345678901234567890');
-
-        $testCases = [
-            0 => 755224,
-            1 => 287082,
-            2 => 359152,
-            3 => 969429,
-            4 => 338314,
-            5 => 254676,
-            6 => 287922,
-            7 => 162583,
-            8 => 399871,
-            9 => 520489,
-        ];
-
-        foreach ($testCases as $movingFactor => $password) {
+        foreach ($this->rfcTestCases as $movingFactor => $password) {
             $this->assertTrue($this->authenticator->verifyPassword($password, $movingFactor));
         }
     }
@@ -76,7 +68,6 @@ class HotpAuthenticatorTest extends TestCase
     /** @test */
     public function verifyPassword_should_return_true_if_given_password_in_window_size()
     {
-        $this->authenticator->setSecret('12345678901234567890');
         $this->authenticator->setWindowSize(2);
 
         // Passwords and movingFactor are taken from RFC document

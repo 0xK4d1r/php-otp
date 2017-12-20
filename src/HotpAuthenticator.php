@@ -13,12 +13,12 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
     protected $secret;
 
     /**
-     * @var string hashing algorithm to be used in hash creation
+     * @var string Hashing algorithm to be used in hash creation
      */
     protected $algorithm = 'sha1';
 
     /**
-     * @var int Flexibility to accept previous nth and next nth password
+     * @var int Accepting previous nth and next nth passwords
      */
     protected $windowSize = 1;
 
@@ -30,6 +30,10 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
     /**
      * Generate one-time password using given moving factor.
      *
+     * Generation is adapted from Java implementation in the HOTP RFC
+     *
+     * @see https://tools.ietf.org/html/rfc4226#page-32
+     *
      * @param $movingFactor int a value that changes on a per use basis.
      *
      * @return string generated one-time password
@@ -40,22 +44,22 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
 
         $hash = hash_hmac($this->algorithm, $binaryMovingFactor, $this->secret, true);
 
-        $hashByteArray = unpack('C*', $hash);
+        $hashDecimalArray = unpack('C*', $hash);
 
         // Array should be re-indexed
         // Since unpack returns array with index starting from 1
-        $hashByteArray = array_values($hashByteArray);
+        $hashDecimalArray = array_values($hashDecimalArray);
 
-        $offset = $hashByteArray[count($hashByteArray) - 1] & 0xF;
+        $offset = $hashDecimalArray[count($hashDecimalArray) - 1] & 0xF;
 
-        $binary = ($hashByteArray[$offset] & 0x7F) << 24 |
-            ($hashByteArray[$offset + 1] & 0xFF) << 16 |
-            ($hashByteArray[$offset + 2] & 0xFF) << 8 |
-            ($hashByteArray[$offset + 3] & 0xFF);
+        $number = ($hashDecimalArray[$offset] & 0x7F) << 24 |
+            ($hashDecimalArray[$offset + 1] & 0xFF) << 16 |
+            ($hashDecimalArray[$offset + 2] & 0xFF) << 8 |
+            ($hashDecimalArray[$offset + 3] & 0xFF);
 
-        $password = $binary % pow(10, $this->passwordLength);
+        $password = $number % pow(10, $this->passwordLength);
 
-        return (string) $password;
+        return str_pad($password, $this->passwordLength, '0', STR_PAD_LEFT);
     }
 
     /**
