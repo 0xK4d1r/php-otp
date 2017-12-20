@@ -32,6 +32,7 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
      * Generate one-time password using given moving factor.
      *
      * Generation is adapted from Java implementation in the HOTP RFC
+     *
      * @see https://tools.ietf.org/html/rfc4226#page-32
      *
      * @param $movingFactor int a value that changes on a per use basis.

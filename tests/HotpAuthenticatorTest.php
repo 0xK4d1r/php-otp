@@ -10,11 +10,12 @@ use vjolenz\OtpAuth\HotpAuthenticator;
 
 class HotpAuthenticatorTest extends TestCase
 {
-    /** @var  \vjolenz\OtpAuth\HotpAuthenticator */
+    /** @var \vjolenz\OtpAuth\HotpAuthenticator */
     private $authenticator;
 
     /**
      * @var array Test cases taken from related RFC
+     *
      * @see https://tools.ietf.org/html/rfc4226#page-32 for more info
      */
     private $rfcTestCases = [

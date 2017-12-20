@@ -8,16 +8,17 @@ use vjolenz\OtpAuth\TotpAuthenticator;
 
 class TotpAuthenticatorTest extends TestCase
 {
-    /** @var  \vjolenz\OtpAuth\TotpAuthenticator */
+    /** @var \vjolenz\OtpAuth\TotpAuthenticator */
     private $authenticator;
 
     /**
      * @var array Test cases taken from related RFC
+     *
      * @see https://tools.ietf.org/html/rfc6238#appendix-B for more info
      */
     private $rfcTestCases = [
         1234567890 => 89005924,
-        59 => 94287082,
+        59         => 94287082,
         2000000000 => 69279037,
     ];
 
