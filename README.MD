@@ -18,7 +18,7 @@ You can install via composer.
 $ composer require vjolenz/php-otp
 ```
 
-## HOTP USAGE
+## HOTP Usage
 
 Generation and verification requires a moving factor that changes on per use. You can use a login counter
 as moving factor.
@@ -51,7 +51,7 @@ as moving factor.
     $authenticator->verifyPassword($password, $user->getLoginCounter());
 ```
 
-## TOTP USAGE
+## TOTP Usage
 
 Unlike HOTP generation and verification, you don't need a moving factor since the current timestamp is used 
 for these operations
@@ -71,8 +71,6 @@ for these operations
 
 ##### Verify Password
  ```php
-    $user = User::find(1);
-    
     $authenticator = new \vjolenz\OtpAuth\TotpAuthenticator();
     $authenticator->setSecret('12345678901234567890'); // Default: null
     $authenticator->setAlgorithm('SHA256'); // Default: SHA1
