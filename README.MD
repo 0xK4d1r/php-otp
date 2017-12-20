@@ -71,8 +71,6 @@ for these operations
 
 ##### Verify Password
  ```php
-    $user = User::find(1);
-    
     $authenticator = new \vjolenz\OtpAuth\TotpAuthenticator();
     $authenticator->setSecret('12345678901234567890'); // Default: null
     $authenticator->setAlgorithm('SHA256'); // Default: SHA1
