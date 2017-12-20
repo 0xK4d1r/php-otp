@@ -1,7 +1,7 @@
 # PHP OTP (One Time Password) Implementation
 
-[![Build Status](https://travis-ci.org/vjolenz/php-otp.svg?branch=master)](https://travis-ci.org/vjolenz/php-otp)
-[![StyleCI](https://styleci.io/repos/113509427/shield?branch=master)](https://styleci.io/repos/113509427)
+[![Build Status](https://travis-ci.org/vjolenz/php-otp.svg?branch=7.0-7.1-compatible)](https://travis-ci.org/vjolenz/php-otp)
+[![StyleCI](https://styleci.io/repos/113509427/shield?branch=7.0-7.1-compatible)](https://styleci.io/repos/113509427)
 
 A PHP library to generate and verify one-time passwords. It is compatible with [HOTP](http://tools.ietf.org/html/rfc4226) 
 and [TOTP](http://tools.ietf.org/html/rfc6238).
@@ -10,7 +10,15 @@ and [TOTP](http://tools.ietf.org/html/rfc6238).
 
 This library needs at least `PHP 7.0`.
 
-## HOTP USAGE
+## Installation
+
+You can install via composer.
+
+``` bash
+$ composer require vjolenz/php-otp
+```
+
+## HOTP Usage
 
 Generation and verification requires a moving factor that changes on per use. You can use a login counter
 as moving factor.
@@ -43,7 +51,7 @@ as moving factor.
     $authenticator->verifyPassword($password, $user->getLoginCounter());
 ```
 
-## TOTP USAGE
+## TOTP Usage
 
 Unlike HOTP generation and verification, you don't need a moving factor since the current timestamp is used 
 for these operations
