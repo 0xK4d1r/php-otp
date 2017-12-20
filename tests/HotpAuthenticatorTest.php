@@ -47,6 +47,18 @@ class HotpAuthenticatorTest extends TestCase
     }
 
     /** @test */
+    public function generatePassword_should_pad_on_the_left_with_0_if_length_of_generated_password_is_lower_than_expected()
+    {
+        $this->authenticator->setSecret('12345678901234567890');
+        $this->authenticator->setPasswordLength(12);
+
+        $password = $this->authenticator->generatePassword();
+
+        $this->assertStringStartsWith('00', $password);
+        $this->assertEquals(12, strlen($password));
+    }
+
+    /** @test */
     public function should_verify_password()
     {
         /*

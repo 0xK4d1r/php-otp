@@ -56,7 +56,7 @@ class HotpAuthenticator implements OtpAuthenticatorInterface
 
         $password = $binary % pow(10, $this->passwordLength);
 
-        return (string) $password;
+        return str_pad($password, $this->passwordLength, '0', STR_PAD_LEFT);
     }
 
     /**
