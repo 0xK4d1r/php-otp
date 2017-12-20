@@ -8,9 +8,15 @@ and [TOTP](http://tools.ietf.org/html/rfc6238).
 
 ## Prerequisites
 
-This library needs at least `PHP 7.2`.
+This library needs at least `PHP 7.0`.
 
-[Click here](https://github.com/vjolenz/php-otp/tree/7.0-7.1-compatible) if you are using `PHP 7.0` or `PHP 7.1`
+## Installation
+
+You can install via composer.
+
+``` bash
+$ composer require vjolenz/php-otp
+```
 
 ## HOTP USAGE
 
