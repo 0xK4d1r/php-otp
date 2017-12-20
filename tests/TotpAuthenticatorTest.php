@@ -1,6 +1,6 @@
 <?php
 
-namespace vjolenz\Google2FA\Test;
+namespace vjolenz\OtpAuth\Test;
 
 use PHPUnit\Framework\TestCase;
 use vjolenz\OtpAuth\Exceptions\NegativeIntervalException;
